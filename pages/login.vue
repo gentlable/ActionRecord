@@ -17,6 +17,7 @@
 // import axios from 'axios'
 
 export default {
+  layout: 'top',
   components: {
   },
   middleware: [

@@ -1,5 +1,7 @@
 <template>
-  <h4 class="header-title">{{ title }}</h4>
+  <div class="header-title">
+    <h1>{{ title }}</h1>
+  </div>
 </template>
 
 <script>
@@ -15,9 +17,11 @@ export default {
 
 <style lang="scss" scoped>
 .header-title {
-  padding: 1rem;
+  font-size: 3rem;
+  padding-top: 1.5rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   text-align: center;
+  letter-spacing: .2em;
 }
 </style>

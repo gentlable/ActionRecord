@@ -35,8 +35,7 @@ export default {
   plugins: [
     '~/plugins/firebase',
     '~/plugins/auth',
-    // 一旦未使用
-    // '~/plugins/util',
+    '~/plugins/util',
     '~/plugins/main'
   ],
   /*

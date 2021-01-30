@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index">
     <header>
       <nav>
         <div class="buttons">
@@ -19,14 +19,7 @@
           >
             記録開始
           </button>
-          <button
-            type="button"
-            name="button"
-            class="btn btn-outline-dark"
-            @click="logout"
-          >
-            ログアウト
-          </button>
+          <logout-button />
         </div>
       </nav>
     </header>
@@ -35,7 +28,7 @@
         <div class="logs">
           <div class="log" v-for="log in logs">
             <div class="img">
-              <img :src="initial_img" alt="" v-if="log.data.category_img == ''">
+              <img :src="initial_img" alt="" v-if="!log.data.category_img">
               <img :src="log.data.category_img" alt="" v-else>
             </div>
             <div class="description">
@@ -48,12 +41,12 @@
             </div>
             <div class="time">
               <div class="start">
-                {{ log.data.start_date }}
-                {{ log.data.start_time }}
+                {{ dateFormat(log.data.start_date) }}
+                {{ timeFormat(log.data.start_time) }}
               </div>
-              <div class="end">
-                {{ log.data.end_date }}
-                {{ log.data.end_time }}
+              <div class="end" v-if="!!log.data.end_date">
+                {{ dateFormat(log.data.end_date) }}
+                {{ timeFormat(log.data.end_time) }}
               </div>
               <div class="duration" v-if="log.data.end_flg === true">
                 {{ calcDiffHhmm(log.data.start_date, log.data.start_time, log.data.end_date, log.data.end_time) }}
@@ -469,9 +462,11 @@
 
 <script>
 import init_img from '~/assets/img/icon.png'
+import LogoutButton from '~/components/atoms/button/Logout.vue'
 
 export default {
   components: {
+    LogoutButton
   },
   middleware: [
     'checkIndex'
@@ -503,6 +498,18 @@ export default {
     // this.getPresets()
   },
   methods: {
+    /*
+     * 日付フォーマット
+     */
+    dateFormat(date) {
+      return this.$dateFormat(date)
+    },
+    /*
+     * 時間フォーマット
+     */
+    timeFormat(time) {
+      return this.$timeFormat(time)
+    },
     /*
      * 記録のデータをdataにセット
      */
@@ -587,7 +594,7 @@ export default {
       this.end_time = this.getTime()
     },
     /*
-     * 二つの時刻を元に差分時間を計算、hh:mm形式で返却
+     * 二つの時刻を元に差分時間を計算、日時分形式で返却
      */
     calcDiffHhmm(start_date, start_time, end_date, end_time) {
       let diffHour = (new Date(end_date + ' ' + end_time) - new Date(start_date + ' ' + start_time)) / (60 * 60 * 1000)
@@ -599,7 +606,13 @@ export default {
         hour = Math.ceil(diffHour)
       // 小数部分を取得、×60して小数切りすて、分にセット
       let min = Math.floor(parseFloat("0."+(String(diffHour)).split(".")[1]) * 60)
-      return hour + ':' + min
+      let date = Math.floor(hour / 24)
+      hour = hour % 24
+      let ans = hour + '時' + min + '分'
+      if(!!date) {
+        ans = date + '日' + ans
+      }
+      return ans
     },
     /*
      * 行動記録"logs"取得
@@ -1005,49 +1018,89 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (min-width:992px) {
+  .index {
+    display: grid;
+    grid-template:
+      "header header header"
+      "...... main   ......"
+      "footer footer footer"
+      / auto 992px auto;
+  }
+}
+
+@media screen and (max-width:992px) {
+  .index {
+    display: grid;
+    grid-template:
+      "header"
+      "main  "
+      "footer"
+      / 1fr;
+  }
+
+  header {
+  }
+
+  main {
+    .content {
+      margin: auto;
+      border-left: 1px solid #cbcbcb;
+      border-right: 1px solid #cbcbcb;
+      .logs {
+        .log {
+          padding: 0.5rem 0;
+          display: flex;
+          justify-content: center;
+          border-bottom: 1px solid #cbcbcb;
+          .img {
+            width: 5rem;
+            margin: auto 0.5rem;
+            img {
+              width: 4rem;
+              height: 4rem;
+              object-fit: contain;
+              border-radius: 1rem;
+            }
+          }
+          .description {
+            width: 1;
+            text-align: left;
+          }
+          .time {
+            width: 100px;
+            margin: auto 0.5rem;
+          }
+          .buttons {
+            margin: auto 0.5rem;
+            display: flex;
+            .btn {
+              margin: auto 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 /*
  * 共通
  */
-.test-img {
-  width: 4rem;
-  height: 4rem;
-  object-fit: contain;
-  border-radius: 1rem;
-}
-
-.row {
-  margin: 0;
-}
-
-/*スクロールバー全体*/
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-/*スクロールバーの軌道*/
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
-}
-
-/*スクロールバーの動く部分*/
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 50, .5);
-  border-radius: 10px;
-  box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
-}
 
 header {
+  grid-area: header;
+  border-bottom: 1px solid #cbcbcb;
   text-align: center;
   padding-bottom: 0.5rem;
 }
 
-.main {
+main {
+  grid-area: main;
   text-align: center;
-  border-top: 1px solid #cbcbcb;
   .content {
     margin: auto;
-    width: 45rem;
+    min-width: 400px;
     border-left: 1px solid #cbcbcb;
     border-right: 1px solid #cbcbcb;
     .logs {
@@ -1067,15 +1120,12 @@ header {
           }
         }
         .description {
-          width: 20rem;
           text-align: left;
         }
         .time {
-          width: 10rem;
           margin: auto 0.5rem;
         }
         .buttons {
-          width: 10rem;
           margin: auto 0.5rem;
           display: flex;
           .btn {
@@ -1085,6 +1135,39 @@ header {
       }
     }
   }
+}
+
+footer {
+  grid-area: footer;
+}
+
+.test-img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
+.row {
+  margin: 0;
+}
+
+/*スクロールバー全体*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*スクロールバーの軌道*/
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+}
+
+/*スクロールバーの動く部分*/
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 50, .5);
+  border-radius: 10px;
+  box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
 }
 
 /*
@@ -1112,7 +1195,6 @@ header {
     .detail {
       margin-top: 10px;
       input {
-        width: 15rem;
       }
     }
     .datetime {
