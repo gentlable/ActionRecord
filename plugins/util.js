@@ -25,20 +25,7 @@ export default ({ app }, inject) => {
       console.log('timeFormatError')
     }
   })
-
-  // 時間⇔日時変換関数
-  inject('dateTimeConvert', (time) => {
-    try {
-      hours = time.slice(0, 2)
-      let minutes = time.slice(3, 5)
-      let date = Math.floor(hours / 24)
-      hours = hours % 24
-      return date + '日' + hours + '時' + minutes + '分'
-    } catch(e) {
-      console.log('dateTimeConvert')
-    }
-  })
-}
+ }
 
 
 // function pararels(...promises: (() => Promise<any>)[]) {

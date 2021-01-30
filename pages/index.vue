@@ -44,6 +44,7 @@
                 {{ dateFormat(log.data.start_date) }}
                 {{ timeFormat(log.data.start_time) }}
               </div>
+              <div>～</div>
               <div class="end" v-if="!!log.data.end_date">
                 {{ dateFormat(log.data.end_date) }}
                 {{ timeFormat(log.data.end_time) }}
@@ -1018,28 +1019,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (min-width:992px) {
+@media screen and (min-width: 992px) {
   .index {
     display: grid;
     grid-template:
       "header header header"
       "...... main   ......"
       "footer footer footer"
-      / auto 992px auto;
-  }
-}
-
-@media screen and (max-width:992px) {
-  .index {
-    display: grid;
-    grid-template:
-      "header"
-      "main  "
-      "footer"
-      / 1fr;
-  }
-
-  header {
+      / auto 800px auto;
   }
 
   main {
@@ -1049,6 +1036,7 @@ export default {
       border-right: 1px solid #cbcbcb;
       .logs {
         .log {
+          height: 120px;
           padding: 0.5rem 0;
           display: flex;
           justify-content: center;
@@ -1064,18 +1052,83 @@ export default {
             }
           }
           .description {
-            width: 1;
+            flex: 1;
+            max-width: 300px;
             text-align: left;
+            .detail {
+              font-size:.8rem;
+            }
           }
           .time {
-            width: 100px;
+            width: 150px;
             margin: auto 0.5rem;
           }
           .buttons {
-            margin: auto 0.5rem;
-            display: flex;
             .btn {
-              margin: auto 0.5rem;
+              display: block;
+              margin: 0.5rem;
+              font-size: .8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .index {
+    display: grid;
+    grid-template:
+      "... header ..."
+      "... main   ..."
+      "... footer ..."
+      / auto minmax(400px, 600px) auto;
+  }
+
+  header {
+  }
+
+  main {
+    .content {
+      margin: auto;
+      border-left: 1px solid #cbcbcb;
+      border-right: 1px solid #cbcbcb;
+      .logs {
+        .log {
+          height: 100px;
+          padding: 0.5rem 0;
+          display: flex;
+          justify-content: center;
+          border-bottom: 1px solid #cbcbcb;
+          .img {
+            width: 5rem;
+            margin: auto 0.5rem;
+            img {
+              width: 4rem;
+              height: 4rem;
+              object-fit: contain;
+              border-radius: 1rem;
+            }
+          }
+          .description {
+            flex: 1;
+            text-align: left;
+            font-size:.8rem;
+            .detail {
+              font-size:.7rem;
+            }
+          }
+          .time {
+            width: 120px;
+            margin: auto 0.5rem;
+            font-size:.8rem;
+          }
+          .buttons {
+            .btn {
+              display: block;
+              margin: 0.5rem;
+              font-size: .8rem;
             }
           }
         }
@@ -1098,43 +1151,6 @@ header {
 main {
   grid-area: main;
   text-align: center;
-  .content {
-    margin: auto;
-    min-width: 400px;
-    border-left: 1px solid #cbcbcb;
-    border-right: 1px solid #cbcbcb;
-    .logs {
-      .log {
-        padding: 0.5rem 0;
-        display: flex;
-        justify-content: center;
-        border-bottom: 1px solid #cbcbcb;
-        .img {
-          width: 5rem;
-          margin: auto 0.5rem;
-          img {
-            width: 4rem;
-            height: 4rem;
-            object-fit: contain;
-            border-radius: 1rem;
-          }
-        }
-        .description {
-          text-align: left;
-        }
-        .time {
-          margin: auto 0.5rem;
-        }
-        .buttons {
-          margin: auto 0.5rem;
-          display: flex;
-          .btn {
-            margin: auto 0.5rem;
-          }
-        }
-      }
-    }
-  }
 }
 
 footer {
