@@ -44,7 +44,7 @@
                 {{ dateFormat(log.data.start_date) }}
                 {{ timeFormat(log.data.start_time) }}
               </div>
-              <div>～</div>
+              <div class="to">～</div>
               <div class="end" v-if="!!log.data.end_date">
                 {{ dateFormat(log.data.end_date) }}
                 {{ timeFormat(log.data.end_time) }}
@@ -1061,7 +1061,12 @@ export default {
           }
           .time {
             width: 150px;
-            margin: auto 0.5rem;
+            margin: 0.5rem;
+            .to {
+              writing-mode: vertical-lr;
+              width: min-content;
+              margin: auto;
+            }
           }
           .buttons {
             .btn {
@@ -1121,8 +1126,13 @@ export default {
           }
           .time {
             width: 120px;
-            margin: auto 0.5rem;
+            margin: 0.5rem;
             font-size:.8rem;
+            .to {
+              writing-mode: vertical-lr;
+              width: min-content;
+              margin: auto;
+            }
           }
           .buttons {
             .btn {
