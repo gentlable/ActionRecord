@@ -80,23 +80,25 @@
     <!-- 記録開始モーダル -->
     <modal
       name="start"
-      classes="start-modal"
+      classes="start-modal modals"
       :adaptive="true"
     >
       <form class="start-form" @submit.prevent="confirmStart">
         <div class="category">
           <span>カテゴリ：</span>
-          <img :src="initial_img" alt="" v-if="category_img==''">
-          <img :src="category_img" alt="" v-else>
-          <span class="name">{{ category_name }}</span>
-          <button
-            type="button"
-            name="button"
-            class="btn btn-outline-dark"
+          <img
+            :src="initial_img"
+            alt=""
+            v-if="category_img==''"
             @click="showSelectCategory"
           >
-            カテゴリ選択
-          </button>
+          <img
+            :src="category_img"
+            alt=""
+            v-else
+            @click="showSelectCategory"
+          >
+          <span class="name">{{ category_name }}</span>
         </div>
         <div class="detail">
           <span>内容：</span>
@@ -145,7 +147,7 @@
     <!-- 記録終了モーダル -->
     <modal
       name="end"
-      classes="end-modal"
+      classes="end-modal modals"
       :adaptive="true"
     >
       <form class="end-form" @submit.prevent="confirmEnd">
@@ -203,23 +205,25 @@
     <!-- 記録編集モーダル -->
     <modal
       name="edit"
-      classes="edit-modal"
+      classes="edit-modal modals"
       :adaptive="true"
     >
       <form class="edit-form" @submit.prevent="confirmEdit">
         <div class="category">
           <span>カテゴリ：</span>
-          <img :src="initial_img" alt="" v-if="category_img==''">
-          <img :src="category_img" alt="" v-else>
-          <span class="name">{{ category_name }}</span>
-          <button
-            type="button"
-            name="button"
-            class="btn btn-outline-dark"
+          <img
+            :src="initial_img"
+            alt=""
+            v-if="category_img==''"
             @click="showSelectCategory"
           >
-            カテゴリ選択
-          </button>
+          <img
+            :src="category_img"
+            alt=""
+            v-else
+            @click="showSelectCategory"
+          >
+          <span class="name">{{ category_name }}</span>
         </div>
         <div class="detail">
           <span>内容：</span>
@@ -296,7 +300,7 @@
     <!-- カテゴリ選択モーダル -->
     <modal
       name="select-category"
-      classes="select-category-modal"
+      classes="select-category-modal modals"
       :adaptive="true"
     >
       <div class="categorys">
@@ -329,7 +333,7 @@
     <!-- カテゴリモーダル -->
     <modal
       name="category"
-      classes="category-modal"
+      classes="category-modal modals"
       :adaptive="true"
     >
       <!-- カテゴリ一覧 -->
@@ -353,8 +357,20 @@
       <form class="category-form" @submit.prevent="addCategory()">
         <div class="category-img">
           アイコン
-          <img :src="initial_img" alt="" v-if="category_img==''" class="test-img">
-          <img :src="category_img" alt="" class="test-img" v-else>
+          <img 
+            :src="initial_img" 
+            alt="" 
+            v-if="category_img==''" 
+            class="test-img"
+             @click="fileUpdload"
+          >
+          <img 
+            :src="category_img" 
+            alt="" 
+            class="test-img" 
+            v-else
+            @click="fileUpdload"
+          >
           <!-- プリセット作るのよくわからんから一旦マスク -->
           <!--
           <button
@@ -370,8 +386,9 @@
           <input
             type="file"
             name="category-img"
+            ref="fileUpdload"
             @change="onImageUploaded"
-            class="btn btn-outline-dark"
+            class="btn btn-outline-dark file-button"
           >
         </div>
         <div class="category-name">
@@ -402,7 +419,7 @@
     <!-- 画像選択モーダル -->
     <modal
       name="select-img"
-      classes="select-img-modal"
+      classes="select-img-modal modals"
       :adaptive="true"
     >
       <div class="row">
@@ -989,6 +1006,12 @@ export default {
       this.category_name = category.name
       this.category_img = category.img_name
       this.$modal.hide('select-category')
+    },
+    /*
+     * ファイルアップロードボタン押下
+     */
+    fileUpdload() {
+      this.$refs.fileUpdload.click();
     }
   }
 }
@@ -1055,6 +1078,225 @@ export default {
       }
     }
   }
+
+  /*
+  * モーダル
+  */
+
+  /* 共通 */
+  .modals {
+    
+  }
+
+  /* 記録開始モーダル */
+  .start-modal {
+    .start-form {
+      margin: 20px;
+      text-align: left;
+      .category {
+        img {
+          width: 4rem;
+          height: 4rem;
+          object-fit: contain;
+          border-radius: 1rem;
+        }
+        .name {
+          margin: 0 10px;
+        }
+      }
+      .detail {
+        margin-top: 10px;
+        input {
+        }
+      }
+      .datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* 記録終了モーダル */
+  .end-modal {
+    .end-form {
+      margin: 20px;
+      text-align: left;
+      .category {
+        img {
+          width: 4rem;
+          height: 4rem;
+          object-fit: contain;
+          border-radius: 1rem;
+        }
+        .name {
+          margin: 0 10px;
+        }
+      }
+      .start-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+      }
+      .end-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* 記録編集モーダル */
+  .edit-modal {
+    .edit-form {
+      margin: 20px;
+      text-align: left;
+      .category {
+        img {
+          width: 4rem;
+          height: 4rem;
+          object-fit: contain;
+          border-radius: 1rem;
+        }
+        .name {
+          margin: 0 10px;
+        }
+      }
+      .start-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .end-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* カテゴリモーダル */
+  .category-modal {
+    .categorys {
+      margin: 10px;
+      margin-right: 0px;
+      height: 7rem;
+      overflow-y: scroll;
+      .row {
+        .category {
+          text-align: center;
+          margin: 10px;
+          .img {
+            width: 5rem;
+          }
+        }
+      }
+    }
+    .category-form {
+      margin: 10px;
+      .category-img {
+      }
+      .category-name {
+        margin-top: 15px;
+      }
+      .buttons {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  /* カテゴリ選択モーダル */
+  .select-category-modal {
+    .categorys {
+      margin: 10px;
+      margin-right: 0px;
+      height: 80%;
+      overflow-y: scroll;
+      .row {
+        .category {
+          text-align: center;
+          margin: 10px;
+          .img {
+            width: 5rem;
+          }
+        }
+      }
+    }
+    .button-wrapper {
+      margin: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: 992px) {
@@ -1068,6 +1310,7 @@ export default {
   }
 
   header {
+    font-size: .8rem;
   }
 
   main {
@@ -1095,7 +1338,7 @@ export default {
           .description {
             flex: 1;
             text-align: left;
-            font-size:.8rem;
+            font-size: .8rem;
             .detail {
               font-size:.7rem;
             }
@@ -1121,12 +1364,229 @@ export default {
       }
     }
   }
+  /*
+  * モーダル
+  */
+
+  /* 共通 */
+  .modals {
+    font-size: .8rem;
+  }
+
+  /* 記録開始モーダル */
+  .start-modal {
+    .start-form {
+      margin: 20px;
+      text-align: left;
+      .category {
+        img {
+          width: 4rem;
+          height: 4rem;
+          object-fit: contain;
+          border-radius: 1rem;
+        }
+        .name {
+          margin: 0 10px;
+        }
+      }
+      .detail {
+        margin-top: 10px;
+        input {
+        }
+      }
+      .datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* 記録終了モーダル */
+  .end-modal {
+    .end-form {
+      margin: 20px;
+      text-align: left;
+      .category {
+        img {
+          width: 4rem;
+          height: 4rem;
+          object-fit: contain;
+          border-radius: 1rem;
+        }
+        .name {
+          margin: 0 10px;
+        }
+      }
+      .start-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+      }
+      .end-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* 記録編集モーダル */
+  .edit-modal {
+    .edit-form {
+      margin: 20px;
+      text-align: left;
+      .category {
+        img {
+          width: 4rem;
+          height: 4rem;
+          object-fit: contain;
+          border-radius: 1rem;
+        }
+        .name {
+          margin: 0 10px;
+        }
+      }
+      .start-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .end-datetime {
+        display: flex;
+        margin-top: 10px;
+        span {
+          margin: auto 0;
+        }
+        .date {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .time {
+          margin: auto 0;
+          margin-left: 10px;
+        }
+        .button-wrapper {
+          margin-left: 10px;
+        }
+      }
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* カテゴリモーダル */
+  .category-modal {
+    .categorys {
+      margin: 10px;
+      margin-right: 0px;
+      height: 6rem;
+      overflow-y: scroll;
+      .row {
+        .category {
+          text-align: center;
+          margin: 5px;
+          .img {
+            width: 4rem;
+          }
+        }
+      }
+    }
+    .category-form {
+      margin: 10px;
+      .category-img {
+      }
+      .category-name {
+        margin-top: 15px;
+      }
+      .buttons {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  /* カテゴリ選択モーダル */
+  .select-category-modal {
+    .categorys {
+      margin: 10px;
+      margin-right: 0px;
+      height: 80%;
+      overflow-y: scroll;
+      .row {
+        .category {
+          text-align: center;
+          margin: 10px;
+          .img {
+            width: 5rem;
+          }
+        }
+      }
+    }
+    .button-wrapper {
+      margin: 10px;
+    }
+  }
 }
 
 /*
  * 共通
  */
-
 header {
   grid-area: header;
   border-bottom: 1px solid #cbcbcb;
@@ -1154,6 +1614,10 @@ footer {
   margin: 0;
 }
 
+.file-button {
+  display: none;
+}
+
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
   width: 10px;
@@ -1170,222 +1634,6 @@ footer {
   background-color: rgba(0, 0, 50, .5);
   border-radius: 10px;
   box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
-}
-
-/*
- * モーダル
- */
-
- /* 共通 */
-
-/* 記録開始モーダル */
-.start-modal {
-  .start-form {
-    margin: 20px;
-    text-align: left;
-    .category {
-      img {
-        width: 4rem;
-        height: 4rem;
-        object-fit: contain;
-        border-radius: 1rem;
-      }
-      .name {
-        margin: 0 10px;
-      }
-    }
-    .detail {
-      margin-top: 10px;
-      input {
-      }
-    }
-    .datetime {
-      display: flex;
-      margin-top: 10px;
-      span {
-        margin: auto 0;
-      }
-      .date {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .time {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .button-wrapper {
-        margin-left: 10px;
-      }
-    }
-    .buttons {
-      margin-top: 10px;
-    }
-  }
-}
-
-/* 記録終了モーダル */
-.end-modal {
-  .end-form {
-    margin: 20px;
-    text-align: left;
-    .category {
-      img {
-        width: 4rem;
-        height: 4rem;
-        object-fit: contain;
-        border-radius: 1rem;
-      }
-      .name {
-        margin: 0 10px;
-      }
-    }
-    .start-datetime {
-      display: flex;
-      margin-top: 10px;
-      span {
-        margin: auto 0;
-      }
-      .date {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .time {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-    }
-    .end-datetime {
-      display: flex;
-      margin-top: 10px;
-      span {
-        margin: auto 0;
-      }
-      .date {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .time {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .button-wrapper {
-        margin-left: 10px;
-      }
-    }
-    .buttons {
-      margin-top: 10px;
-    }
-  }
-}
-
-/* 記録編集モーダル */
-.edit-modal {
-  .edit-form {
-    margin: 20px;
-    text-align: left;
-    .category {
-      img {
-        width: 4rem;
-        height: 4rem;
-        object-fit: contain;
-        border-radius: 1rem;
-      }
-      .name {
-        margin: 0 10px;
-      }
-    }
-    .start-datetime {
-      display: flex;
-      margin-top: 10px;
-      span {
-        margin: auto 0;
-      }
-      .date {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .time {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .button-wrapper {
-        margin-left: 10px;
-      }
-    }
-    .end-datetime {
-      display: flex;
-      margin-top: 10px;
-      span {
-        margin: auto 0;
-      }
-      .date {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .time {
-        margin: auto 0;
-        margin-left: 10px;
-      }
-      .button-wrapper {
-        margin-left: 10px;
-      }
-    }
-    .buttons {
-      margin-top: 10px;
-    }
-  }
-}
-
-/* カテゴリモーダル */
-.category-modal {
-  .categorys {
-    margin: 10px;
-    margin-right: 0px;
-    height: 14rem;
-    overflow-y: scroll;
-    .row {
-      .category {
-        text-align: center;
-        margin: 10px;
-        .img {
-          width: 5rem;
-        }
-      }
-    }
-  }
-  .category-form {
-    margin: 10px;
-    .category-img {
-    }
-    .category-name {
-      margin-top: 15px;
-    }
-    .buttons {
-      margin-top: 15px;
-    }
-  }
-}
-
-/* カテゴリ選択モーダル */
-.select-category-modal {
-  .categorys {
-    margin: 10px;
-    margin-right: 0px;
-    height: 80%;
-    overflow-y: scroll;
-    .row {
-      .category {
-        text-align: center;
-        margin: 10px;
-        .img {
-          width: 5rem;
-        }
-      }
-    }
-  }
-  .button-wrapper {
-    margin: 10px;
-  }
 }
 
 

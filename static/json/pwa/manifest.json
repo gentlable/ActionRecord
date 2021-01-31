@@ -2,11 +2,11 @@
   "name":"ActionRecord",
   "short_name":"ActionRecord",
   "icons": [{
-      "src": "/icons/my_heart_original.png",
+      "src": "/icons/ActionRecord_title.png",
       "sizes":"192x192",
       "type": "image/png"
     }, {
-      "src": "/icons/my_heart_original.png",
+      "src": "/icons/ActionRecord_title.png",
       "sizes":"512x512",
       "type": "image/png"
     }],
