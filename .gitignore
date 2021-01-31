@@ -89,3 +89,4 @@ sw.*
 # Vim swap files
 *.swp
 *.cache
+.firebase/hosting.ZGlzdA.cache

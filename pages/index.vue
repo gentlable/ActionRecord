@@ -80,12 +80,8 @@
     <!-- 記録開始モーダル -->
     <modal
       name="start"
-      class="start-modal"
-      :width="'50%'"
-      :height="'50%'"
+      classes="start-modal"
       :adaptive="true"
-      :scrollable="true"
-      :draggable="true"
     >
       <form class="start-form" @submit.prevent="confirmStart">
         <div class="category">
@@ -149,12 +145,8 @@
     <!-- 記録終了モーダル -->
     <modal
       name="end"
-      class="end-modal"
-      :width="'50%'"
-      :height="'50%'"
+      classes="end-modal"
       :adaptive="true"
-      :scrollable="true"
-      :draggable="true"
     >
       <form class="end-form" @submit.prevent="confirmEnd">
         <div class="category">
@@ -211,12 +203,8 @@
     <!-- 記録編集モーダル -->
     <modal
       name="edit"
-      class="edit-modal"
-      :width="'50%'"
-      :height="'50%'"
+      classes="edit-modal"
       :adaptive="true"
-      :scrollable="true"
-      :draggable="true"
     >
       <form class="edit-form" @submit.prevent="confirmEdit">
         <div class="category">
@@ -305,52 +293,44 @@
       </form>
     </modal>
 
-        <!-- カテゴリ選択モーダル -->
-        <modal
-          name="select-category"
-          class="select-category-modal"
-          :width="'50%'"
-          :height="'50%'"
-          :adaptive="true"
-          :scrollable="true"
-          :draggable="true"
-        >
-          <div class="categorys">
-            <div class="row">
-              <div class="category" v-for="category in categorys" @click="setCategory(category)">
-                <div class="img">
-                  <img :src="initial_img" alt="" v-if="category.img_name==''">
-                  <img :src="category.img_name" alt="" v-else>
-                </div>
-                <div class="description">
-                  <div class="category-name">
-                    {{ category.name }}
-                  </div>
-                </div>
+    <!-- カテゴリ選択モーダル -->
+    <modal
+      name="select-category"
+      classes="select-category-modal"
+      :adaptive="true"
+    >
+      <div class="categorys">
+        <div class="row">
+          <div class="category" v-for="category in categorys" @click="setCategory(category)">
+            <div class="img">
+              <img :src="initial_img" alt="" v-if="category.img_name==''">
+              <img :src="category.img_name" alt="" v-else>
+            </div>
+            <div class="description">
+              <div class="category-name">
+                {{ category.name }}
               </div>
             </div>
           </div>
-          <div class="button-wrapper">
-            <button
-              type="button"
-              name="button"
-              class="btn btn-outline-dark"
-              @click="closeSelectCategory"
-            >
-              閉じる
-            </button>
-          </div>
-        </modal>
+        </div>
+      </div>
+      <div class="button-wrapper">
+        <button
+          type="button"
+          name="button"
+          class="btn btn-outline-dark"
+          @click="closeSelectCategory"
+        >
+          閉じる
+        </button>
+      </div>
+    </modal>
 
     <!-- カテゴリモーダル -->
     <modal
       name="category"
-      class="category-modal"
-      :width="'50%'"
-      :height="'60%'"
+      classes="category-modal"
       :adaptive="true"
-      :scrollable="true"
-      :draggable="true"
     >
       <!-- カテゴリ一覧 -->
       <div class="categorys">
@@ -422,12 +402,8 @@
     <!-- 画像選択モーダル -->
     <modal
       name="select-img"
-      :width="'50%'"
-      :height="'50%'"
+      classes="select-img-modal"
       :adaptive="true"
-      :scrollable="true"
-      :draggable="true"
-      :resizable="true"
     >
       <div class="row">
         <div class="category" v-for="img in preset_imgs">
