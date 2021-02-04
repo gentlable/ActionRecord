@@ -14,10 +14,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'manifest', href: 'json/pwa/manifest.json' },
+      { rel: 'manifest', href: '/manifest.json' },
     ],
     script: [
-      { src: 'js/pwa/pwa.js'}
+      { src: '/pwa.js'}
     ]
   },
   /*
