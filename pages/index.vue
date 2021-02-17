@@ -1296,7 +1296,12 @@ export default {
           text-align: center;
           margin: 10px;
           .img {
-            width: 5rem;
+              width: 5rem;
+              height: 4rem;
+            img {
+              max-width: 5rem;
+              max-height: 4rem;
+            }
           }
         }
       }
@@ -1585,7 +1590,12 @@ export default {
           text-align: center;
           margin: 10px;
           .img {
-            width: 5rem;
+              width: 5rem;
+              height: 4rem;
+            img {
+              max-width: 5rem;
+              max-height: 4rem;
+            }
           }
         }
       }
