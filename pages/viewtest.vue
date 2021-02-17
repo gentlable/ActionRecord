@@ -112,19 +112,17 @@
           <div class="time">
             <input type="time" name="start-time" v-model="start_time" required>
           </div>
-        </div>
-        <!--
           <div class="button-wrapper">
-          <button
-            type="button"
-            name="button"
-            class="btn btn-outline-dark"
-            @click="setStartDateTime"
-          >
-            現在時刻
-          </button>
+            <button
+              type="button"
+              name="button"
+              class="btn btn-outline-dark"
+              @click="setStartDateTime"
+            >
+              現在時刻
+            </button>
+          </div>
         </div>
-        -->
         <div class="buttons">
           <button
             type="button"
@@ -172,7 +170,6 @@
           <div class="time">
             <input type="time" name="end-time" v-model="end_time" required>
           </div>
-          <!--
           <div class="button-wrapper">
             <button
               type="button"
@@ -183,7 +180,6 @@
               現在時刻
             </button>
           </div>
-          -->
         </div>
         <div class="buttons">
           <button
@@ -241,7 +237,6 @@
           <div class="time">
             <input type="time" name="start-time" v-model="start_time" required>
           </div>
-          <!--
           <div class="button-wrapper" v-if="end_flg === false">
             <button
               type="button"
@@ -252,7 +247,6 @@
               現在時刻
             </button>
           </div>
-          -->
         </div>
         <div class="end-datetime" v-if="end_flg === true">
           <span>終了時刻：</span>
@@ -262,7 +256,6 @@
           <div class="time">
             <input type="time" name="end-time" v-model="end_time" required>
           </div>
-          <!--
           <div class="button-wrapper">
             <button
               type="button"
@@ -273,7 +266,6 @@
               現在時刻
             </button>
           </div>
-          -->
         </div>
         <div class="buttons">
           <button
@@ -471,7 +463,7 @@ export default {
     LogoutButton
   },
   middleware: [
-    'checkIndex'
+    // 'checkIndex'
   ],
   data: () => ({
     uid: '',
@@ -493,11 +485,11 @@ export default {
     initial_img: init_img
   }),
   mounted: function () {
-    this.uid = this.$getUid()
-    // この二つ並列化したい
-    this.getLogs()
-    this.getCategorys()
-    // this.getPresets()
+    // this.uid = this.$getUid()
+    // // この二つ並列化したい
+    // this.getLogs()
+    // this.getCategorys()
+    // // this.getPresets()
   },
   methods: {
     /*
@@ -617,7 +609,7 @@ export default {
       return ans
     },
     /*
-     * 行動記録"logs"取得
+     * 行動記録"logs"取得【手ｓと】
      */
     async getLogs() {
       let db = this.$firestore
@@ -1026,14 +1018,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 992px) {
   .index {
     display: grid;
     grid-template:
       "header header header"
       "...... main   ......"
       "footer footer footer"
-      / auto 700px auto;
+      / auto 800px auto;
   }
 
   main {
@@ -1307,14 +1299,14 @@ export default {
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 992px) {
   .index {
     display: grid;
     grid-template:
       "... header ..."
       "... main   ..."
       "... footer ..."
-      / auto minmax(400px, 600px) auto;
+      / auto minmax(auto, 600px) auto;
   }
 
   header {
@@ -1377,11 +1369,7 @@ export default {
   */
 
   /* 共通 */
-  .modals > * {
-    font-size: .8rem !important;
-  }
-
-  .modals .btn {
+  .modals {
     font-size: .8rem;
   }
 
@@ -1647,8 +1635,4 @@ footer {
   border-radius: 10px;
   box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
 }
-
-
-
-
 </style>
