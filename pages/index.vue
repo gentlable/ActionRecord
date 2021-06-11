@@ -26,7 +26,7 @@
     <main class="main">
       <div class="content">
         <div class="logs">
-          <div class="log" v-for="log in logs">
+          <div class="log" v-for="log in logs" :key="log">
             <div class="img">
               <img :src="initial_img" alt="" v-if="!log.data.category_img">
               <img :src="log.data.category_img" alt="" v-else>
@@ -313,7 +313,7 @@
     >
       <div class="categorys">
         <div class="row">
-          <div class="category" v-for="category in categorys" @click="setCategory(category)">
+          <div class="category" v-for="category in categorys" @click="setCategory(category)" :key="category">
             <div class="img">
               <img :src="initial_img" alt="" v-if="category.img_name==''">
               <img :src="category.img_name" alt="" v-else>
@@ -347,7 +347,7 @@
       <!-- カテゴリ一覧 -->
       <div class="categorys">
         <div class="row">
-          <div class="category" v-for="category in categorys">
+          <div class="category" v-for="category in categorys" :key="category">
             <div class="img">
               <img :src="initial_img" alt="" v-if="category.img_name==''" class="test-img">
               <img :src="category.img_name" alt="" class="test-img" v-else>
@@ -401,7 +401,7 @@
         </div>
         <div class="category-name">
           カテゴリ
-          <input type="text" name="category-name" v-model="category_name"required>
+          <input type="text" name="category-name" v-model="category_name" required>
         </div>
         <div class="buttons">
           <button
@@ -431,7 +431,7 @@
       :adaptive="true"
     >
       <div class="row">
-        <div class="category" v-for="img in preset_imgs">
+        <div class="category" v-for="img in preset_imgs" :key="img">
           <div class="img">
             <img
               :src="img"
