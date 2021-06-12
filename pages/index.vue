@@ -1092,9 +1092,9 @@ export default {
   */
 
   /* 共通 */
-  .modals {
+  // .modals {
     
-  }
+  // }
 
   /* 記録開始モーダル */
   .start-modal {
@@ -1114,8 +1114,8 @@ export default {
       }
       .detail {
         margin-top: 10px;
-        input {
-        }
+        // input {
+        // }
       }
       .datetime {
         display: flex;
@@ -1273,8 +1273,8 @@ export default {
     }
     .category-form {
       margin: 10px;
-      .category-img {
-      }
+      // .category-img {
+      // }
       .category-name {
         margin-top: 15px;
       }
@@ -1408,8 +1408,8 @@ export default {
       }
       .detail {
         margin-top: 10px;
-        input {
-        }
+        // input {
+        // }
       }
       .datetime {
         display: flex;
@@ -1567,8 +1567,8 @@ export default {
     }
     .category-form {
       margin: 10px;
-      .category-img {
-      }
+      // .category-img {
+      // }
       .category-name {
         margin-top: 15px;
       }
